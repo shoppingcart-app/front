@@ -1,0 +1,24 @@
+.categories{
+    margin:10px 0px;
+    padding: 0 10px 0 10px !important;
+    box-sizing: border-box;
+}
+.authors{
+    margin:10px 0px;
+    padding: 0 10px 0 10px !important;
+    box-sizing: border-box;
+}
+.fontstyle{
+    font-size:20px;
+    color:white;
+}
+
+nav{
+    background-color:#F0F0F0;
+}
+
+.category-size .nav-link,.author-size .nav-link{
+    font-size: 12px !important;
+    color:#0066C0 !important;
+    padding:5px 0px;
+}

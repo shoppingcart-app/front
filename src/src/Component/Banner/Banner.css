@@ -1,0 +1,19 @@
+.cover{
+    object-fit: fill;
+}
+.bannercard{
+    border: 0px;
+}
+.bannercard .author-img {
+    max-width: 100%;
+    height: auto;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    border-radius: 200px;
+}
+@media (max-width:600px){
+    .bannercard .card-img-top{
+        width:100% !important;
+    }
+}
+

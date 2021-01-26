@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+.projName{
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.projName a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Satisfy', cursive !important;
+    font-size: 30px !important;
+}
+.jumbotron{
+    width: 390px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0px;
+    padding: 15px 40px 20px 40px;
+}
+.jumbotron label{
+    padding-top: 10px;
+}
+
+.sign{
+    width: 350px;
+}
+.error{
+    color: red;
+    font-size: 13px;
+}

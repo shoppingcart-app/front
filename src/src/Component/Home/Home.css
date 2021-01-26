@@ -1,0 +1,9 @@
+.leftNavbar{
+    padding:0 !important;  
+}
+@media (max-width:600px){
+    .container{
+        padding:0px 15px !important;
+    }
+}
+
