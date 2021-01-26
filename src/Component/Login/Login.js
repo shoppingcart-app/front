@@ -1,8 +1,9 @@
 import React from 'react';
-
+import './Login.css'
 import Auth from '../../Authentication/Auth';
 import {Link} from 'react-router-dom';
 import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Login extends React.Component{
 
     constructor(props){

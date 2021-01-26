@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+.footer_logo> strong > a{
+    text-decoration: none;
+    color: black;
+    font-family: 'Satisfy', cursive;
+    font-size: 30px;
+}
+.footer_about > p{
+    color: #666666;    
+}
+.footer__payment a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    font-size: 28px;
+    color: #111111;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 0px;
+    margin-bottom: 5px;
+}
+.footer__social a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    font-size: 15px;
+    color: #111111;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 6px;
+    margin-bottom: 5px;
+}
+.hrtag{
+    width: 90%;
+}
+.fa-facebook,.fa-twitter,
+.fa-youtube-play,.fa-instagram,.fa-pinterest
+{
+    font-size: xx-large;
+}

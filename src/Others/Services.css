@@ -1,0 +1,18 @@
+.services__item {
+    padding-left: 65px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.fa-car{
+    font-size: 38px;
+}
+.fa-money{
+    font-size: 38px;
+}
+.fa-support{
+    font-size: 38px;
+}
+.fa-headphones{
+    font-size: 38px;
+}

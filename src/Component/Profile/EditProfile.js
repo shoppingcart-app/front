@@ -1,10 +1,14 @@
 import React from 'react';
-import './Register.css';
-import Auth from '../../Authentication/Auth';
-import {Link} from 'react-router-dom';
+// import './Register.css';
+import Navbar from '../Navbar/Navbar';
+import Auth from '../../Authentication/Auth'
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-class Register extends React.Component{
+import Axios from 'axios';
+import Services from '../../Others/Services.js';
+import Footer from '../../Others/Footer';
+import {getCartItems} from '../UserFunctions/UserFunctions.js';
+class EditProfile extends React.Component{
     constructor(props){
         super(props)
         this.state = 
@@ -18,6 +22,7 @@ class Register extends React.Component{
             city: '',
             pincode:'',
             phnNo: '',
+            // details:[],
             errors : {
                 firstName: '',
                 lastName: '',
@@ -30,11 +35,42 @@ class Register extends React.Component{
                 phnNo: '',
             },
             isValid: false,
-            message:''
+            message:'',
+            count: 0
         }; 
-        this.auth=new Auth();     
+        this.auth=new Auth(this.props.history);     
     }
-
+    logoutHandler=()=>{
+        this.auth.logout();
+    }
+    componentDidMount(){
+        Axios.get(`http://localhost:4000/user/getUser/${this.props.userName}`).then((res)=>{
+            console.log(res.data)
+            if(res.data){
+                this.setState({
+                    firstName: res.data[0].firstName,
+                    lastName: res.data[0].lastName,
+                    userName: res.data[0].userName,
+                    password:res.data[0].password,
+                    phnNo:res.data[0].phnNo,
+                    address:res.data[0].address,
+                    state:res.data[0].state,
+                    city:res.data[0].city,
+                    pincode:res.data[0].pincode
+                   
+                });
+            }else{
+                this.setState({message:res.data.message});
+            }
+        });
+        if(this.auth.getUserName()){
+            getCartItems(this.auth.getUserName()).then((res)=>{
+                if(res.cartItems){
+                    this.setState({count:res.cartItems.length});
+                }
+            }).catch(err=>{this.setState({message:"404 error"})});
+        }        
+    }
 
     handleChange=(event)=>{
         const {id,value} =event.target;
@@ -124,75 +160,76 @@ class Register extends React.Component{
                 // onClose:() =>window.location.reload()
               }
               );
-            //alert("Please enter all the fields correctly");
-            return false;
+            // alert("Please enter all the fields correctly");
         }
         else{
-            this.auth.registration(data).then((res)=>{
-                if(res.message===true){
-                    toast.info("Registered Successfully", {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: true,
-                        onClose:() =>this.props.history.push('/login')
-                    }
-                    );
-                    
-                }else{
-                    toast.error(res.message, {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: true,
-                        // onClose:() =>window.location.reload()
-                      }
-                      );
-                    //alert(res.message);
-                }
-            });
-        }
-       
-    
+            Axios.put(`http://localhost:4000/user/updateDetails`,data).then((res)=>{
+            console.log(res.data)
+            if(res.data.success){
+                this.setState({message:res.data.message});
+                toast.info(this.state.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                   
+                  }
+                  );
+                //   alert(this.state.message)
+            }else{
+                this.setState({message:res.data.message});
+                toast.info(this.state.message, {
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: false,
+                    // onClose:() =>window.location.reload()
+                  }
+                  );
+                // alert(this.state.message)
+            }
+        });        
+        }      
     }
 
     render(){
         const {errors} = this.state;
         return(
-            <div className="container text-center">
-            <ToastContainer/>
-            <div className="projName text-center">
-                <a href="/#"><strong>Book Store</strong></a>
+            <>
+                <ToastContainer />
+            <div className="container-fluid">
+                <Navbar {...this.props} userName={this.auth.getUserName()} display={this.state.displayCart} logout={()=>{this.logoutHandler()}} count={this.state.count}/>
             </div>
             <div className="row ">
                 <div className="col-12 d-flex justify-content-center">
-                    <div className="jumbotron" style={{width:"550px"}}>
-                        <h4>SignUp</h4>
+                    <div className="jumbotron mt-5 mb-5" style={{width:"550px"}}>
+                        <h4>Edit Profile</h4>
                         <form onSubmit={this.handleSubmit}>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="firstName" className="float-left">First Name:</label>
-                                <input id="firstName" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="First Name" required/>
+                                <input id="firstName" value={this.state.firstName} type="text" className="form-control" onChange={this.handleChange} placeholder="First Name" required contentEditable="true"/>
                                 <div className="float-right error">
                                 {errors.firstName.length > 0 && 
                                     <span className='error'>{errors.firstName}</span>}</div>
                             </div>
+                            </div>
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="lastName" className="float-left">Last Name:</label>
-                                <input id="lastName" value={this.state.email} type="text" className="form-control" onChange={this.handleChange} placeholder="Last Name" required/>
+                                <input id="lastName" value={this.state.lastName} type="text" className="form-control" onChange={this.handleChange} placeholder="Last Name" required/>
                                 <div className="float-right error">
                                 {errors.lastName.length > 0 && 
                                     <span className='error'>{errors.lastName}</span>}</div>
                             </div>
+                            </div>
+                            </div>
                             <div className="form-group">
                                 <label htmlFor="userName" className="float-left">User Name(Email):</label>
-                                <input id="userName" value={this.state.username} type="text" className="form-control" onChange={this.handleChange} placeholder="ex: abcdef@ghijk.xyz" required/>
+                                <input id="userName" value={this.state.userName} type="text" className="form-control" onChange={this.handleChange} placeholder="ex: abcdef@ghijk.xyz" required readOnly/>
                                 <div className="float-right error">
                                 {errors.userName.length > 0 && 
                                     <span className='error'>{errors.userName}</span>}</div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="password" className="float-left">Password:</label>
-                                <input id="password" value={this.state.password} type="password" className="form-control" onChange={this.handleChange} placeholder="Password" required/>
-                                <div className="float-right error">
-                                {errors.password.length > 0 && 
-                                    <span className='error'>{errors.password}</span>}</div>
-                            </div>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                                 <label htmlFor="address" className="float-left">Address:</label>
                                 <input id="address" value={this.state.address} type="text" className="form-control" onChange={this.handleChange} placeholder="Address" required/>
@@ -200,6 +237,19 @@ class Register extends React.Component{
                                 {errors.address.length > 0 && 
                                     <span className='error'>{errors.address}</span>}</div>
                             </div>
+                            </div>
+                            <div className="col-6">
+                            <div className="form-group">
+                                <label htmlFor="pincode" className="float-left">Pincode:</label>
+                                <input id="pincode" value={this.state.pincode} type="number" className="form-control" onChange={this.handleChange} placeholder="PinCode" required/>
+                                <div className="float-right error">
+                                {errors.pincode.length > 0 && 
+                                    <span className='error'>{errors.pincode}</span>}</div>
+                            </div>
+                            </div>
+                            </div>
+                            <div className="row">
+                            <div className="col-6">
                             <div className="form-group">
                             <label htmlFor="state" className="float-left">State:</label>
                                 <select id="state" value= {this.state.state} onChange={this.handleChange} className="form-control" required>
@@ -209,6 +259,8 @@ class Register extends React.Component{
                                     <option value = "Tamil Nadu">Tamil Nadu</option>
                                 </select>                                
                             </div>
+                            </div>
+                            <div className="col-6">
                             <div className="form-group">
                             <label htmlFor="city" className="float-left">City:</label>
                                 <select id="city" value= {this.state.city} onChange={this.handleChange} className="form-control" required>
@@ -218,13 +270,9 @@ class Register extends React.Component{
                                     <option value = "Chennai">Chennai</option>
                                 </select>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="pincode" className="float-left">Pincode:</label>
-                                <input id="pincode" value={this.state.pincode} type="number" className="form-control" onChange={this.handleChange} placeholder="PinCode" required/>
-                                <div className="float-right error">
-                                {errors.pincode.length > 0 && 
-                                    <span className='error'>{errors.pincode}</span>}</div>
                             </div>
+                            </div>
+                            
                             <div className="form-group">
                                 <label htmlFor="phnNo" className="float-left">Phone Number:</label>
                                 <input id="phnNo" value={this.state.phnNo} type="number" className="form-control" onChange={this.handleChange} placeholder="Phone Number" required/>
@@ -232,17 +280,19 @@ class Register extends React.Component{
                                 {errors.phnNo.length > 0 && 
                                     <span className='error'>{errors.phnNo}</span>}</div>
                             </div>                        
-                            <input type="Submit" className="form-control btn-success"/> 
-                            <small>By Submitting you agree to our Conditions of Use and Privacy Notice</small>
+                            <input type="Submit" className="form-control btn-success" value="Update Details" />
                         </form>
                     </div>
                 </div>                
             </div>
-            <h6><small>Already a registered USer?</small></h6>
-            <Link to="/login" className="btn btn-success form-control sign">Login</Link>
-        </div>
+       
+        <div className="container-fluid">
+                <Services />
+                <Footer /> 
+        </div>    
+        </>
         )
     }
 }
 
-export default Register;
+export default EditProfile

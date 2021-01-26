@@ -1,0 +1,48 @@
+.booksCard .card .card-text {
+    line-height: 1em !important;
+    font-size:12px !important ;
+}
+.container{
+    padding:0 !important;
+}
+.booksCard .card{
+    padding:0 !important;
+    font-family:sans-serif;
+    transition: .2s ease-in-out ;
+    height:380px !important;
+}
+.booksCard .card:hover{
+    box-shadow:5px 10px 8px #888888;
+    transform:scale(1.1) ;   
+}
+.booksCard .card-footer{
+    display:flex !important;
+    justify-content: space-between;
+    padding-right: 0px !important;
+    padding-left:0px !important;
+    position:absolute;
+    bottom:0;   
+}
+
+@media (max-width:780px){
+    .booksCard .card-footer{
+        flex-flow: column;
+        
+    }
+    .card-footer .btn{
+        margin-top: 0.25rem !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    
+    }
+    .booksCard .card-footer a{
+        margin-top: 5px;
+    }
+    .booksCard .card{
+        padding:0 !important;
+        font-family:sans-serif;
+        transition: .2s ease-in-out ;
+        height:480px !important;
+        
+    }
+}
