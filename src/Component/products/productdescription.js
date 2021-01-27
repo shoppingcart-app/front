@@ -7,7 +7,7 @@ import Footer from '../../Others/Footer';
 import Services from '../../Others/Services';
 import LeftNavbar from '../Navbar/LeftNavbar';
 import Navbar from '../Navbar/Navbar';
-import Books from './Books';
+import Books from './products';
 import './BookDescription.css';
 export default class BookDescription extends React.Component{
     state={searchItem:"",books:[],display:true,result:[],message:"",displaySearch:true,count:0,bookById:{}};
