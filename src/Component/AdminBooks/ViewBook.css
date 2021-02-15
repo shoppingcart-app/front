@@ -1,0 +1,13 @@
+.viewBooks td,th{
+    text-align: left;
+    vertical-align: middle;
+}
+.viewBooks td{
+    font-size: 16px !important;
+}
+
+.booknames {
+    font-size: 17px !important;
+}
+
+

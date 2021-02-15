@@ -1,106 +1,57 @@
+import React from 'react';
 import './AdminNav.css';
 import Aux from '../../hoc/Auxiliary.js';
 import {Link } from 'react-router-dom';
-    
+class AdminNav extends React.Component{
+    render(){
+        return(
+            <Aux>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light adminNav">
+                    <Link className="navbar-brand" to="/admin"><strong>BookStore</strong></Link>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
 
-import React, {​​​​​​​​ Component }​​​​​​​​ from'react'
-import Form from'react-bootstrap/Form'
-import Button from'react-bootstrap/Button';
-import axios from'axios';
- 
-export default class AdminNav extends Component {​​​​​​​​
-constructor(props){​​​​​​​​
-super(props)
-
-this.state = {​​​​​​​​
-productId:'',
-title :'',
-price :'',
-description :'',
-imageUrl :''
-        }​​​​​​​​ 
-
-    }​​​​​​​​
-onChangeproductId= (e) =>  {​​​​​​​​
-this.setState({​​​​​​​​ productId :e.target.value}​​​​​​​​)
-    }​​​​​​​​
- 
-onChangetitle = (e) =>  {​​​​​​​​
-this.setState({​​​​​​​​ title :e.target.value}​​​​​​​​)
-    }​​​​​​​​
- 
-onChangeprice = (e) =>  {​​​​​​​​
-this.setState({​​​​​​​​ price :e.target.value}​​​​​​​​)
-    }​​​​​​​​
- 
-onChangedescription = (e) =>  {​​​​​​​​
-this.setState({​​​​​​​​ description :e.target.value}​​​​​​​​)
-    }​​​​​​​​
- 
-onChangeimageUrl = (e) =>  {​​​​​​​​
-this.setState({​​​​​​​​ imageUrl :e.target.value}​​​​​​​​)
-    }​​​​​​​​
-onSubmit = (e) => {​​​​​​​​
-e.preventDefault()
-constProductObj= {​​​​​​​​ 
-productId:this.state.productId,
-title:this.state.title,
-price:this.state.price,
-description:this.state.description,
-imageUrl:this.state.imageUrl
-        }​​​​​​​​
- 
-axios.post('http://localhost:4000/api/products',ProductObj)
-        .then(res=>console.log(res.data));
- 
-alert(`Job successfully created!`)
-this.setState({​​​​​​​​
-productId:'',
-title :'',
-price :'',
-description :'',
-imageUrl :''
-        }​​​​​​​​);
-    }​​​​​​​​
- 
-render() {​​​​​​​​
-return (
-
-
-<div className="form-wrapper">
-            <Form onSubmit={this.onSubmit}>
-                <Form.Group controlId="productId">
-                <Form.Label>Product Id</Form.Label>
-                <Form.Control type="text" value={this.state.productId} onChange={this.onChangeproductId} />
-                </Form.Group>
- 
-                <Form.Group controlId="title">
-                <Form.Label>Title</Form.Label>
-                <Form.Control type="text" value={this.state.title} onChange={this.onChangetitle} />
-                </Form.Group>
- 
-                <Form.Group controlId="price">
-                <Form.Label>Price</Form.Label>
-                <Form.Control type="text" value={this.state.price} onChange={this.onChangeprice} />
-                </Form.Group>
- 
-                <Form.Group controlId="description">
-                <Form.Label>Description</Form.Label>
-                <Form.Control type="text" value={this.state.description} onChange={this.onChangedescription} />
-                </Form.Group>
- 
- 
-
-
-    
-
-                <Form.Group controlId="imageUrl">
-                <Form.Label>Image</Form.Label>
-                <Form.Control type="file" value={this.state.imageUrl} onChange={this.onChangeimageUrl} />
-                </Form.Group>
-                </Form>
-                <Button variant="success" size="lg" block="block" type="submit">Post Products</Button>
-            </div>
-        )
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul className="navbar-nav ml-auto">
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle" to="#" id="bookDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i className="fa fa-book" aria-hidden="true"></i>Books
+                            </Link>
+                            <div className="dropdown-menu" aria-labelledby="bookDropdown">
+                            <Link className="dropdown-item" to="addBook">Add Book</Link>
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/viewBooks">View Books</Link>
+                            </div>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle" to="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i className="fa fa-list" aria-hidden="true"></i>Category
+                            </Link>
+                            <div className="dropdown-menu" aria-labelledby="categoryDropdown">
+                            <Link className="dropdown-item" to="addCategory">Add Category</Link>
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/showCategories">View Categories</Link>
+                            </div>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle" to="#" id="authorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i className="fa fa-user" aria-hidden="true"></i>Author
+                            </Link>
+                            <div className="dropdown-menu" aria-labelledby="authorDropdown">
+                            <Link className="dropdown-item" to="addAuthor">Add Author</Link>
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/showAuthors">View Authors</Link>
+                            </div>
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-sm btn-success" onClick={this.props.logoutHandler}>Logout</button>
+                        </li>
+                        </ul>
+                    </div>
+                </nav>
+            </Aux>
+        );
     }
 }
+export default AdminNav

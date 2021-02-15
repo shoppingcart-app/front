@@ -14,10 +14,13 @@ class Navbar extends React.Component{
             <Aux>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
                     <div className="container-fluid">
-                    {!this.auth.isAuthenticated() && <Link className="navbar-brand" to='/'><strong>Shopping Cart</strong></Link>}
-                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:"/Home/"+this.props.userName}}><strong>Shopping Cart</strong></Link>}
+                    {!this.auth.isAuthenticated() && <Link className="navbar-brand" to='/'><strong>Bookstore</strong></Link>}
+                    {this.auth.isAuthenticated()&&<Link className="navbar-brand" to={{pathname:"/Home/"+this.props.userName}}><strong>Book Store</strong></Link>}
                     {this.props.display &&<div className="col-lg-8 col-md-6 col-sm-6">
-                       
+                        <form className="form-inline justify-content-center">
+                            <input className="form-control mr-sm-2 w-50"type="text" placeholder="Search" aria-label="Search" onChange={this.props.search}/>
+                            <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.props.click}>Search</button>
+                        </form>
                     </div>}
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>

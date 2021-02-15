@@ -10,15 +10,11 @@ export default class Footer extends React.Component{
             <div className="col-lg-8 col-md-8 col-sm-8" id="aboutUs">
                 <div className="footer_about">
                     <div className="footer_logo">
-                        <strong><Link to="/#">Shopping Cart</Link></strong>
+                        <strong><Link to="/#">Book Store</Link></strong>
                     </div>
                     <p>
-                    A few clicks is all it takes.</p>
-                    <p>
-                    A new type of storefront.
-                    </p>
-                    <p>
-                    Always ahead.
+                    Reading books is the favourite pastime of many people. If you’re bitten by the book-bug too, then there is a massive collection of books for you to read. From bestsellers to new 
+                    & future releases, the choices are exhaustive when you shop online at India's Largest Bookstore.
                     </p>
                     <div className="footer__payment ">
                     <Link to="/#"><i className="fa fa-cc-mastercard" aria-hidden="true"></i></Link>

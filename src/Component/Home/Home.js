@@ -1,11 +1,11 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import LeftNavbar from '../Navbar/LeftNavbar';
-import Books from '../mobile/mobile';
+import Books from '../Books/Books';
 import './Home.css';
 import Auth from '../../Authentication/Auth.js';
 import Aux from '../../hoc/Auxiliary.js';
-import Authors from '../company/company.js';
+import Authors from '../Authors/Authors.js';
 import Services from '../../Others/Services.js';
 import Footer from '../../Others/Footer';
 import {search} from '../UserFunctions/UserFunctions.js'

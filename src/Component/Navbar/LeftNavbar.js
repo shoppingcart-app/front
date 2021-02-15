@@ -41,7 +41,7 @@ class LeftNavbar extends React.Component{
             </nav>
             </div>
             <div className="authors mb-2">
-            <h1 className="fontstyle text-dark">Mobiles</h1>
+            <h1 className="fontstyle text-dark">Authors</h1>
             <nav className="navbar">
             {this.state.message}
                     <ul className="navbar-nav w-100 author-size">

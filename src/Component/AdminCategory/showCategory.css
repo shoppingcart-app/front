@@ -1,0 +1,7 @@
+.showCategories td,th{
+    text-align:left;
+    vertical-align: middle;
+}
+.showCategories td{
+    font-size: 16px !important;
+}
